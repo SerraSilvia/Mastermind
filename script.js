@@ -14,19 +14,23 @@ var intento = 0;
 var aciertos = 0;
 
 function init() {
-    randomCombo();
+    let result = document.querySelector('#result');
+
     //1. Genera el código random del master
+    randomCombo();
 
     //2. Crea todas las filas según el número de intentos.
+    for (let i = 0; i < MAX_INTENTOS; i++) 
+        result.insertAdjacentHTML('beforeend', ROW_RESULT);
 }
 
 function randomCombo(){
     let combo= [];
-    for(let i=0; i<4; i++){
+    for(let i=0; i<MAX_COMBI_COLORES; i++){
       let aleatorio= COLORS[Math.floor(Math.random() * COLORS.length)];
         combo.push(aleatorio);
     }
-    console.log(combo);
+
     return combo
 }
 
@@ -38,7 +42,12 @@ function Comprobar() {
 
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
 function añadeColor(color) {
-   
+    if (userCombi.length >= 4) return;
+
+    userCombi.push(color);
+
+    let cube = document.querySelector(`#result .rowResult:nth-child(${intento + 1})`);
+
 }
 
 
@@ -57,7 +66,7 @@ const ROW_RESULT = `<div class="rowResult w100 flex wrap">
        <div class="w25">
            <div class="celUserCombi flex"></div>
        </div>
-    </div>alis/Mastermind_CODIGO
+    </div>
     <div class="rowCercleResult w25 flex wrap center">
        <div class="w40 h40">
             <div class="cercleResult flex"></div>

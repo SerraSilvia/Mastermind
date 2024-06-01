@@ -57,7 +57,7 @@ main{
 }
 
 .bloqueado{
-    position: sticky;
+  /*   position: sticky; */
     top:0;
     background-color: white;
     z-index: 100;
