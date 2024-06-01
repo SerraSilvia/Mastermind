@@ -14,12 +14,21 @@ var intento = 0;
 var aciertos = 0;
 
 function init() {
+    randomCombo();
     //1. Genera el código random del master
 
     //2. Crea todas las filas según el número de intentos.
 }
 
-
+function randomCombo(){
+    let combo= [];
+    for(let i=0; i<4; i++){
+      let aleatorio= COLORS[Math.floor(Math.random() * COLORS.length)];
+        combo.push(aleatorio);
+    }
+    console.log(combo);
+    return combo
+}
 
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha
 introducido el usuario.
