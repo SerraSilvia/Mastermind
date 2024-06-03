@@ -71,6 +71,16 @@ main{
 #orange{background-color: orange;}
 #cyan{background-color: cyan;}
 
+/*a todos los div que tengan la clase .color (otro elemento nos lo está pisando)*/
+div.white{background-color: white; border: 1px solid black;}
+div.blue{background-color: blue;}
+div.green{background-color: green;}
+div.violet{background-color: violet}
+div.yellow{background-color: yellow;}
+div.red{background-color: red;}
+div.orange{background-color: orange;}
+div.cyan{background-color: cyan;}
+
 .grey{background-color: #BABABA;}
 
 /*  */
@@ -169,5 +179,12 @@ button:hover, button:focus{
     cursor: pointer;
 }
 
+.blackColor{
+    background-color: black;
+}
 
+.whiteColor{
+    background-color: white;
+    border: 1px solid black;
+}
 

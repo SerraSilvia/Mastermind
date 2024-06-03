@@ -8,17 +8,17 @@ const BLACK = "black";
 
 
 //Declaración de variables globales.
-const master = [];
-const userCombi = [];
-var intento = 0;
+var master = [];
+var userCombi = [];
+var intento = 1;
 var aciertos = 0;
 
 function init() {
     let result = document.querySelector('#result');
 
     //1. Genera el código random del master
-    randomCombo();
-
+    master = randomCombo();
+    console.log(master)
     //2. Crea todas las filas según el número de intentos.
     for (let i = 0; i < MAX_INTENTOS; i++) 
         result.insertAdjacentHTML('beforeend', ROW_RESULT);
@@ -38,6 +38,42 @@ function randomCombo(){
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
+    if (userCombi.length<4 || intento>MAX_INTENTOS) return;
+
+    userCombi.forEach(function(color, index) {
+        const circle= document.querySelector(`#result .rowResult:nth-child(${intento}) .rowCercleResult div:nth-child(${index+1}) .cercleResult`);
+        if(color == master[index]){
+            /**poner la bolita en negro */
+            circle.classList.add("blackColor");
+            aciertos++;
+        }else{
+            if(master.some(masterColor => masterColor == color)){
+                /**pintar a blanco si está pero no en la posición*/
+                circle.classList.add("whiteColor");
+            }
+        }
+    });
+
+    if(aciertos==4){
+        document.getElementById("info").innerHTML="Has ganado!!";
+       let cubeMaster = document.querySelectorAll("#master div div div");
+       cubeMaster.forEach(function (element, index){
+        element.classList.add(master[index])
+       });
+    }else{
+        intento++;
+
+        if(intento> MAX_INTENTOS){
+            document.getElementById("info").innerHTML="Intentalo otra vez";
+            let cubeMaster = document.querySelectorAll("#master div div div");
+            cubeMaster.forEach(function (element, index){
+             element.classList.add(master[index])
+            });
+        }
+
+        aciertos = 0;
+        userCombi = [];
+    } 
 }
 
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
@@ -45,9 +81,11 @@ function añadeColor(color) {
     if (userCombi.length >= 4) return;
 
     userCombi.push(color);
+    const column = userCombi.length;
+    let cube = document.querySelector(`#result .rowResult:nth-child(${intento}) .rowUserCombi div:nth-child(${column}) .celUserCombi`);
 
-    let cube = document.querySelector(`#result .rowResult:nth-child(${intento + 1})`);
-
+    if (cube == null) return; /**daba nulo en algun momento, aseguramos k si es null se salga */
+    cube.classList.add(color);
 }
 
 
